@@ -4,8 +4,10 @@ const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cors = require('cors');
+const {google} = require('googleapis')
 const config = require('./config')
 const auth = require('./auth')
+const persos = require('./persos')
 
 
 try {
@@ -16,6 +18,18 @@ try {
     extended: true
   }))
 
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-access-token')
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200)
+    }
+    else {
+      next()
+    }
+  })
+    
   app.get('/test', (req, res) => {
     db.query('select 1+1', (error, results) => {
       if (error) return res.status(500).json({type: 'error', error})
@@ -23,7 +37,8 @@ try {
     })
   })
   app.use(cors())
-  app.use('/auth', auth({db, express, bcrypt, jwt, jwtToken: config.jwtToken}))
+  app.use('/auth', auth({db, express, bcrypt, jwt, config, google}))
+  app.use('/persos', persos({db, express, config}))
 
   app.listen(config.port)
   console.log('App is running on port ' + config.port)
