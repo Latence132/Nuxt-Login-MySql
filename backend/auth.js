@@ -10,7 +10,6 @@ module.exports = ({db, express, bcrypt, jwt, jwtToken}) => {
       if (error) return res.status(500).json({type: 'error', message: 'db error', error})
       if (results.length == 0) return res.status(403).json({type: 'error', message: 'User with provided email not found in database.'})
       const user = results[0]
-      console.log(results[0])
       bcrypt.compare(password, user.password, (error, result) => {
         if (error) return res.status(500).json({type: 'error', message: 'bcrypt error', error})
         if (result) {
