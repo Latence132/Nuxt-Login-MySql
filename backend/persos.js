@@ -1,4 +1,4 @@
-export default function ({ db, express, config }) {
+module.exports = ({ db, express, config }) => {
   const routes = express.Router();
   routes.get('/all', (req, res) => {
     db.query('select id, nom, degats, timeEndormi, type, atout from personnages_v2', (error, persos) => {

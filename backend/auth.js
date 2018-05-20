@@ -1,4 +1,4 @@
-export default function ({ db, express, bcrypt, jwt, jwtToken }) {
+module.exports = ({ db, express, bcrypt, jwt, config }) => {
   const routes = express.Router();
   routes.post('/login', (req, res) => {
     const email = req.body.email;

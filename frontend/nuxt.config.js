@@ -48,5 +48,15 @@ module.exports = {
   },
   router: {
       middleware: ['auth']
+  },
+  generate: {
+    routes: [
+    'personnages/1',
+    'personnages/2',
+    'personnages/3',
+    'personnages/4',
+    'personnages/5',
+    'personnages/6'
+    ]
   }
 }

@@ -1,8 +1,7 @@
 import api from '~/api'
 
 export const state = () => ({
-  persos: [],
-  perso: {}
+  persos: []
 })
 
 export const actions = {
@@ -29,6 +28,6 @@ export const getters = {
     return state.persos
   },
   getId (state, id) {
-    return this.state.persos[id]
+    return state.persos[id]
   }
 }
